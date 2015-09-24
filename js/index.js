@@ -49,30 +49,53 @@ var app = {
 };
 
 app.initialize();
+$.getScript("js/progressbar.min.js");
 
 var timeInterval = null
+var minuteString = null
+var secondString = null
+
+var circle = new ProgressBar.Circle('#progressBar', {
+        color: '#F00',
+        strokeWidth: 3,
+        trailWidth: 1,
+        text: {
+            value: "00:00"
+        },
+
+    });
+
 
 function startTimer(minutes, seconds, display) {
     console.log("Starting timer")
     console.log("Minutes -> " + minutes)
     console.log("Seconds -> " + seconds)
     var duration = parseInt(minutes * 60) + parseInt(seconds)
+    circle.duration = duration
     console.log("Duration -> " + duration)
     var timer = duration, minutes, seconds;
     timeInterval = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+        minuteString = minutes < 10 ? "0" + minutes : minutes;
+        secondString = seconds < 10 ? "0" + seconds : seconds;
 
-        display.text(minutes + ":" + seconds);
-
+        display.text(minuteString + ":" + secondString);
+        circle.setText(minuteString + ":" + secondString);
         if (--timer < 0) {
             clearInterval(timeInterval)
             display.text("Timer Complete");
+            circle.stop()
         }
     }, 1000);
+
+
+    circle.animate(1, {
+        duration : duration * 1000,
+        from : {color : "#F00"},
+        to : {color : "#0F0"}
+    })
 }
 
 function stopTimer(display) {

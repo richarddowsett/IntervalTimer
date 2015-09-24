@@ -90,6 +90,13 @@ select {
       text-align: center;
 }
 
+#progressBar {
+    margin-left: auto;
+    margin-right: auto;
+    height: 25%;
+    width: 25%;
+}
+
 .event {
     border-radius:4px;
     -webkit-border-radius:4px;
