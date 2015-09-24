@@ -49,3 +49,40 @@ var app = {
 };
 
 app.initialize();
+
+var timeInterval = null
+
+function startTimer(minutes, seconds, display) {
+    console.log("Starting timer")
+    console.log("Minutes -> " + minutes)
+    console.log("Seconds -> " + seconds)
+    var duration = parseInt(minutes * 60) + parseInt(seconds)
+    console.log("Duration -> " + duration)
+    var timer = duration, minutes, seconds;
+    timeInterval = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            clearInterval(timeInterval)
+            display.text("Timer Complete");
+        }
+    }, 1000);
+}
+
+function stopTimer(display) {
+    console.log("Attempting to stop timer")
+    if(timeInterval){
+        console.log("Stopping timer")
+        clearInterval(timeInterval)
+        display.text("Timer Stopped")
+        timeInterval = null
+    } else {
+        console.log("No interval timer to stop")
+    }
+}
