@@ -55,35 +55,67 @@
 <div class="content">
 
     <div id="countdown">
-        This is the click element
-        <h3 id="clock">Waiting for timer</h3>
 
         <div id="progressBar"></div>
 
-        <div>
+        <div class="inputDiv">
             <label>Time Input</label>
-            <select size="1" id="minutes">
+            <select size="1" id="minutes" onchange="checkEnable">
+                <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
                 <option value="6">6</option>
-            </select>
-            <select size="1" id="seconds">
+            </select> minutes : 
+            <select size="1" id="seconds" onchange="checkEnable">
                 <option value="0">0</option>
                 <option value="15">15</option>
                 <option value="30">30</option>
                 <option value="45">45</option>
+            </select> seconds
+        </div>
+        <div class="inputDiv">
+            <label>Rest</label>
+            <select size="1" id="rest">
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="45">45</option>
+                <option value="60">60</option>
             </select>
         </div>
-
-        <button class="btn btn-positive" onclick="startTimer($('#minutes').val(), $('#seconds').val(), $('#clock'))">Start Timer</button>
-        <button class="btn btn-positive" onclick="stopTimer($('#clock'))">Stop Timer</button>
+        <div class="inputDiv">
+            <label>Number of Intervals</label>
+            <select size="1" id="intervals">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <div class="inputDiv">
+            <button id="startButton" class="btn btn-positive" onclick="startTimer($('#minutes').val(), $('#seconds').val(), $('#rest').val(), $('#intervals').val())">Start Timer</button>
+            <button class="btn btn-positive" onclick="stopTimer($('#clock'))">Stop Timer</button>
+        </div>
     </div>
 </div>
 <!--<script type="text/javascript" src="js/cordova.js"></script>-->
+<script type="text/javascript">
+    function checkEnable() {
+        var seconds = $('#seconds').val()
+        var minutes = $('#minutes').val()
+        if(seconds != '0' && minutes != '0'){
+            $('#startButton').enabled = true
+            console.log("Button enabled")
+        }
+        else{
+            $('#startButton').enabled = false
+            console.log("button disabled")
+        }
+    }
+</script>
 <script type="text/javascript" src="js/progressbar.min.js"></script>
+<script type="text/javascript" src="js/timer.js"></script>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="js/ratchet.min.js"></script>
 <script src="js/angular.min.js"></script>

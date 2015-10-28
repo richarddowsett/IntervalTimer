@@ -49,63 +49,37 @@ var app = {
 };
 
 app.initialize();
-$.getScript("js/progressbar.min.js");
+//$.getScript("js/progressbar.min.js");
+//$.getScript("js/timer.js");
 
 var timeInterval = null
 var minuteString = null
 var secondString = null
-
-var circle = new ProgressBar.Circle('#progressBar', {
-        color: '#F00',
-        strokeWidth: 3,
-        trailWidth: 1,
-        text: {
-            value: "00:00"
-        },
-
-    });
+var currentTimer = null
 
 
-function startTimer(minutes, seconds, display) {
-    console.log("Starting timer")
-    console.log("Minutes -> " + minutes)
-    console.log("Seconds -> " + seconds)
-    var duration = parseInt(minutes * 60) + parseInt(seconds)
-    circle.duration = duration
-    console.log("Duration -> " + duration)
-    var timer = duration, minutes, seconds;
-    timeInterval = setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-
-        minuteString = minutes < 10 ? "0" + minutes : minutes;
-        secondString = seconds < 10 ? "0" + seconds : seconds;
-
-        display.text(minuteString + ":" + secondString);
-        circle.setText(minuteString + ":" + secondString);
-        if (--timer < 0) {
-            clearInterval(timeInterval)
-            display.text("Timer Complete");
-            circle.stop()
-        }
-    }, 1000);
-
-
-    circle.animate(1, {
-        duration : duration * 1000,
-        from : {color : "#F00"},
-        to : {color : "#0F0"}
-    })
-}
-
-function stopTimer(display) {
-    console.log("Attempting to stop timer")
-    if(timeInterval){
-        console.log("Stopping timer")
-        clearInterval(timeInterval)
-        display.text("Timer Stopped")
-        timeInterval = null
-    } else {
-        console.log("No interval timer to stop")
+function startTimer(minutes, seconds, restSeconds, repeats) {
+    console.log("Creating Timer object with mintes -> " + minutes + ": seconds -> " + seconds +  " - repeats -> " + repeats);
+    var configuration = []
+    configuration[0] = {minutes: minutes, seconds: seconds}
+    if(repeats > 1)
+        repeats = (repeats - 1) * 2
+    var i = 1
+    while(i < repeats) {
+        configuration[i] = {minutes: 0, seconds: restSeconds, rest:true}
+        configuration[i + 1] = {minutes :minutes, seconds: seconds}
+        i += 2
     }
+    var currentTimer = configuration
+    console.log(configuration)
+    console.log("Created timer, starting it");
+    console.log(currentTimer)
+    startTimerObj(configuration, 0)
 }
+
+
+
+function stopTimer() {
+    stopTimerObj()
+}
+
