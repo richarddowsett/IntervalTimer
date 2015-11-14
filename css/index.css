@@ -133,3 +133,9 @@ background: linear-gradient(white, grey);
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+.animate-switch-container {
+  position:relative;
+  height: 100%;
+}
+

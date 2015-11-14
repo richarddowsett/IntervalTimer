@@ -56,7 +56,9 @@
             <span class="tab-label">History</span>
         </a>
     </nav>
-    <div id="countdown" ng-show="countdown">
+    <div class="animate-switch-container"
+         ng-switch on="countdown">
+    <div id="countdown" ng-switch-when="true">
 
         <div id="progressBar"></div>
 
@@ -103,7 +105,7 @@
             <button class="btn btn-positive" onclick="stopTimer($('#clock'))">Stop Timer</button>
         </div>
     </div>
-    <div id="history" ng-show="!countdown">
+    <div id="history" ng-switch-when="false">
         <p>dsfkljsdfjsd;fjsdjflj</p>
 
         <p>Name: <input type="text" ng-model="name"></p>
