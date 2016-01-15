@@ -56,15 +56,17 @@
             <span class="tab-label">History</span>
         </a>
     </nav>
+
     <div class="animate-switch-container"
          ng-switch on="countdown">
+
     <div id="countdown" ng-switch-when="true">
 
         <div id="progressBar"></div>
 
         <div class="inputDiv">
             <label>Time Input</label>
-            <select size="1" id="minutes" onchange="checkEnable">
+            <select size="1" id="minutes" onchange="checkEnable" ng-model="minutesData.singleSelect">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -73,7 +75,7 @@
                 <option value="5">5</option>
                 <option value="6">6</option>
             </select> minutes :
-            <select size="1" id="seconds" onchange="checkEnable">
+            <select size="1" id="seconds" onchange="checkEnable" ng-model="secondsData.singleSelect">
                 <option value="0">0</option>
                 <option value="15">15</option>
                 <option value="30">30</option>
@@ -82,7 +84,7 @@
         </div>
         <div class="inputDiv">
             <label>Rest</label>
-            <select size="1" id="rest">
+            <select size="1" id="rest" ng-model="restData.singleSelect">
                 <option value="15">15</option>
                 <option value="30">30</option>
                 <option value="45">45</option>
@@ -91,7 +93,7 @@
         </div>
         <div class="inputDiv">
             <label>Number of Intervals</label>
-            <select size="1" id="intervals">
+            <select size="1" id="intervals" ng-model="intervalData.singleSelect">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -99,7 +101,7 @@
         </div>
         <div class="inputDiv">
             <button id="startButton" class="btn btn-positive"
-                    onclick="startTimer($('#minutes').val(), $('#seconds').val(), $('#rest').val(), $('#intervals').val())">
+                    ng-click="startTimer()">
                 Start Timer
             </button>
             <button class="btn btn-positive" onclick="stopTimer($('#clock'))">Stop Timer</button>
@@ -110,11 +112,14 @@
 
         <p>Name: <input type="text" ng-model="name"></p>
 
+        <button class="btn btn-positive" ng-click="playPredefined()">Play Predefined</button>
+
         <p ng-bind="name"></p>
     </div>
 </div>
 <!--<script type="text/javascript" src="js/cordova.js"></script>-->
 <script type="text/javascript">
+
     function checkEnable() {
         var seconds = $('#seconds').val()
         var minutes = $('#minutes').val()
@@ -128,18 +133,81 @@
         }
     }
 
-    function changeCountdown() {
-    console.log("changing countdown from -> " + countdown)
-        countdown = !countdown
-    }
-
     var app = angular.module('intervalTimer', []);
     app.controller('myCtrl', function($scope) {
+
+    $scope.intervalData = {
+        singleSelect: null,
+        1: '1',
+        2: '2',
+        3: '3'
+    }
+
+    $scope.minutesData = {
+        singleSelect: null,
+        0: '0',
+        1: '1',
+        2: '2',
+        3: '3',
+        4: '4',
+        5: '5',
+        6: '6'
+    }
+
+    $scope.restData = {
+        singleSelect: null,
+        15: '15',
+        30: '30',
+        45: '45',
+        60: '60'
+    }
+
+    $scope.secondsData = {
+        singleSelect: null,
+        0: '0',
+        15: '15',
+        30: '30',
+        45: '45'
+    }
+
     $scope.countdown = true;
     $scope.changeCountdown = function() {
      console.log("changing countdown from -> " + $scope.countdown)
        $scope.countdown = !$scope.countdown;
     };
+
+    $scope.playPredefined = function() {
+        console.log("Setting intervals to 3")
+        $scope.intervalData.singleSelect = "3"
+        console.log($('#intervals').val())
+        $scope.restData.singleSelect = "15"
+        $scope.minutesData.singleSelect = "5"
+        $scope.secondsData.singleSelect = "15"
+        $scope.changeCountdown()
+    }
+
+    $scope.startTimer = function() {
+    minutes = $scope.minutesData.singleSelect
+    seconds = $scope.secondsData.singleSelect
+    restSeconds = $scope.restData.singleSelect
+    repeats = $scope.intervalData.singleSelect
+    console.log("Creating Timer object with mintes -> " + minutes + ": seconds -> " + seconds +  " - repeats -> " + repeats);
+    var configuration = []
+    configuration[0] = {minutes: minutes, seconds: seconds}
+    if(repeats > 1)
+        repeats = (repeats - 1) * 2
+    var i = 1
+    while(i < repeats) {
+        configuration[i] = {minutes: 0, seconds: restSeconds, rest:true}
+        configuration[i + 1] = {minutes :minutes, seconds: seconds}
+        i += 2
+    }
+    var currentTimer = configuration
+    console.log(configuration)
+    console.log("Created timer, starting it");
+    console.log(currentTimer)
+    startTimerObj(configuration, 0)
+}
     });
 
 

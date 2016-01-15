@@ -10,12 +10,15 @@
         },
 
     });
+    console.log("I have just created " + circle)
 
 var timeInterval = null
 
 function startTimerObj(configuration, i) {
     circle.set(0)
 	console.log(configuration.length + " -> " + i)
+	console.log(circle)
+	circle.setText("Working")
 	var first = configuration[i]
 	var minutes = first.minutes
 	var seconds = first.seconds
@@ -44,7 +47,7 @@ function startTimerObj(configuration, i) {
 
         circle.setText(minuteString + ":" + secondString);
         --totalDuration
-        
+        console.log("Looping")
         if (++durationCount == originalDuration + 2) {
             clearInterval(timeInterval)
             circle.stop()

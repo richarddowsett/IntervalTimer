@@ -58,24 +58,7 @@ var secondString = null
 var currentTimer = null
 
 
-function startTimer(minutes, seconds, restSeconds, repeats) {
-    console.log("Creating Timer object with mintes -> " + minutes + ": seconds -> " + seconds +  " - repeats -> " + repeats);
-    var configuration = []
-    configuration[0] = {minutes: minutes, seconds: seconds}
-    if(repeats > 1)
-        repeats = (repeats - 1) * 2
-    var i = 1
-    while(i < repeats) {
-        configuration[i] = {minutes: 0, seconds: restSeconds, rest:true}
-        configuration[i + 1] = {minutes :minutes, seconds: seconds}
-        i += 2
-    }
-    var currentTimer = configuration
-    console.log(configuration)
-    console.log("Created timer, starting it");
-    console.log(currentTimer)
-    startTimerObj(configuration, 0)
-}
+
 
 
 
