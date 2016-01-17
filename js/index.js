@@ -62,7 +62,5 @@ var currentTimer = null
 
 
 
-function stopTimer() {
-    stopTimerObj()
-}
+
 
