@@ -48,20 +48,20 @@
 
 <div class="content" ng-app="intervalTimer" ng-controller="myCtrl">
     <nav class="bar bar-tab">
-        <a class="tab-item active" href='' ng-click="changeCountdown()">
+        <a class="tab-item active" href='' ng-click="changeTabView('countdown')">
             <span class="icon icon-home"></span>
             <span class="tab-label">Timer</span>
         </a>
-        <a class="tab-item" href='' ng-click="changeCountdown()">
+        <a class="tab-item" href='' ng-click="changeTabView('workouts')">
             <span class="icon icon-person"></span>
-            <span class="tab-label">History</span>
+            <span class="tab-label">Workouts</span>
         </a>
     </nav>
 
     <div class="animate-switch-container"
-         ng-switch on="countdown">
+         ng-switch on="tabView">
 
-        <div id="countdown" ng-switch-when="true">
+        <div id="countdown" ng-switch-when="countdown">
 
             <div
                     round-progress
@@ -120,7 +120,7 @@
                 <button class="btn btn-positive" ng-click="stopTimerObj()">Stop Timer</button>
             </div>
         </div>
-        <div id="history" ng-switch-when="false">
+        <div id="workouts" ng-switch-when="workouts">
             <p>dsfkljsdfjsd;fjsdjflj</p>
 
             <p>Name: <input type="text" ng-model="name"></p>
@@ -191,10 +191,10 @@ $scope.timeInterval = null
                 $scope.animations.push(key);
             });
 
-    $scope.countdown = true;
-    $scope.changeCountdown = function() {
-     console.log("changing countdown from -> " + $scope.countdown)
-       $scope.countdown = !$scope.countdown;
+    $scope.tabView = 'countdown'
+    $scope.changeTabView = function(tabChange) {
+     console.log("changing tabView to -> " + tabChange)
+       $scope.tabView = tabChange;
     };
 
     $scope.playPredefined = function() {
@@ -204,7 +204,7 @@ $scope.timeInterval = null
         $scope.restData.singleSelect = "15"
         $scope.minutesData.singleSelect = "5"
         $scope.secondsData.singleSelect = "15"
-        $scope.changeCountdown()
+        $scope.changeTabView('countdown')
     }
 
     $scope.startTimer = function() {
