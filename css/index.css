@@ -79,7 +79,14 @@ select {
       margin-left: auto ;
       margin-right: auto ;
       text-align: center;
-background: linear-gradient(white, grey);
+}
+
+.defaultTheme {
+    background: linear-gradient(white, grey);
+}
+
+.warrior {
+    background: red;
 }
 
 #progressBar {
@@ -91,7 +98,7 @@ background: linear-gradient(white, grey);
 }
 
 header{
-background: linear-gradient(white, grey);
+
 }
 
 .inputDiv {

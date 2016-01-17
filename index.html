@@ -42,11 +42,11 @@
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script type="text/javascript" src="js/roundProgress.min.js"></script>
 <body>
-<header class="bar bar-nav">
+<header class="bar bar-nav defaultTheme">
     <h1>Interval Timer</h1>
 </header>
 
-<div class="content" ng-app="intervalTimer" ng-controller="myCtrl">
+<div id="top" class="content defaultTheme" ng-app="intervalTimer" ng-controller="myCtrl">
     <nav class="bar bar-tab">
         <a class="tab-item active" href='' ng-click="changeTabView('countdown')">
             <span class="icon icon-home"></span>
@@ -55,6 +55,10 @@
         <a class="tab-item" href='' ng-click="changeTabView('workouts')">
             <span class="icon icon-person"></span>
             <span class="tab-label">Workouts</span>
+        </a>
+        <a class="tab-item" href='' ng-click="changeTabView('themes')">
+            <span class="icon"></span>
+            <span class="tab-label">Themes</span>
         </a>
     </nav>
 
@@ -128,6 +132,10 @@
             <button class="btn btn-positive" ng-click="playPredefined()">Play Predefined</button>
 
             <p ng-bind="name"></p>
+        </div>
+        <div id="themes" ng-switch-when="themes">
+            <button class="btn btn-positive" ng-click="changeTheme('defaultTheme')">Default Theme</button>
+            <button class="btn btn-positive" ng-click="changeTheme('warrior')">Warrior Theme</button>
         </div>
     </div>
     <script type="text/javascript" src="js/index.js"></script>
