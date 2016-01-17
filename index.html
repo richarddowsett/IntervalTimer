@@ -69,13 +69,12 @@
                     current="current"
                     color="#45ccce"
                     bgcolor="#eaeaea"
-                    radius="100"
+                    radius="200"
                     stroke="20"
                     semi="false"
                     rounded="true"
                     clockwise="true"
                     responsive="false"
-                    duration="1000"
                     animation="easeInOutQuart"></div>
 
             <div class="inputDiv">
@@ -206,8 +205,6 @@ $scope.timeInterval = null
         $scope.minutesData.singleSelect = "5"
         $scope.secondsData.singleSelect = "15"
         $scope.changeCountdown()
-        $scope.max = 60
-        $scope.current = 30
     }
 
     $scope.startTimer = function() {
